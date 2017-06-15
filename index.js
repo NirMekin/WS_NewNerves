@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by Nir Mekin on 5/10/2017.
  */
@@ -7,58 +8,34 @@ const   express     = require('express'),
         songs       = require('./songs_mdl'),
         users       = require('./users_mdl'),
         mixes       = require('./mixes_mdl'),
+        musicPlayer = require('./app/index'),
         port        = process.env.PORT || 3000;
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+var mPlayer = musicPlayer();
 
+app.all('*', (req, res, next) => {
+    console.log('==== Request received ====');
+    req.next();
+});
 
-/*
-* //songs
-
- getSongsByTitle(title: string);
- getSongsByArtist(genre: string);
- */
-
-// getAllSongs();
-app.get('/getAllSongs',(req,res)=> {
-    "use strict";
-    try {
-        songs.getAllSongs().then((result) => {
-            res.json(result);
-        });
-    }
-    catch (errResult){
-        console.log(errResult);
-        res.json({"error":"songs not found"});
-    }
-})
-
-// getSongsByGenre(genre: string);  // BY POST
-// app.post('/getSongsByGenre/',(req,res)=>{
-//     "use strict";
-//     try{
-//         songs.getSongsByGenre(bodyParser.params.genres).then((result)=>{
-//             res.json(result);
-//         })
-//     }catch (errResult){
-//         console.log(errResult);
-//         res.json({"error":"Genre not fount"});
-//     }
-// })
-
-
-
-
-//friendly Page not fount ( 404 )
-app.all('*',(req,res)=>{
-    "use strict";
-    res.status(404).json({"Error":"404 - Page not found"});
-})
-
-app.listen(port,
-    ()=>{
-        console.log(`listening on port ${port}`);
+app.get('/getAllSongs', (req, res) => {
+    mPlayer.getAllSongs().then((result) => {
+        if (result.length !== 0) {
+            console.log(`==========\n${result}\n Received successfully from the database!\n==========`);
+            res.status(200).json(result);
+        }
+        else {
+            console.log(`==========\nFailed to retrieve data\n==========`);
+            res.status(200).json(`Failed to retrieve data`);
+        }
     });
+});
+
+app.listen(port);
+console.log(`listening on port ${port}`);
+
+

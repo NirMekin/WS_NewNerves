@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-      consts = require('./consts'),
+      consts = require('../consts'),
       promise = require('promise'),
       Songs = require('../songs_mdl'),
       Mixes = require('../mixes_mdl'),
@@ -14,15 +14,19 @@ conn.on('error', (err) => {
     console.log(`connection error: ${err}`);
 });
 
-module.exports = class MusicPlayer {
-    static getAllSongs() {
+class MusicPlayer {
+    getAllSongs() {
         return new Promise((resolve, reject) => {
-            Songs.find({}, `-_id`,
+            Songs.find({}, '-_id',
                 (err, result) => {
-                if (err) throw reject(err);
-                else resolve(result);
-            });
+                    if (err) reject(err);
+                    else resolve(result);
+                });
         });
     }
 
+}
+
+module.exports = () => {
+    return new MusicPlayer()
 };
