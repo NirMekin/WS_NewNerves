@@ -5,7 +5,7 @@
 const   express     = require('express'),
         bodyParser  = require('body-parser'),
         app         = express(),
-        musicPlayer = require('./app/index'),
+        musicPlayer = require('./NewNervesMdl/index'),
         port        = process.env.PORT || 3000;
 
 
@@ -33,9 +33,19 @@ app.all('*', (req, res, next) => {
     req.next();
 });
 
+//Get API
 app.get('/', (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
+    res.sendFile(`${__dirname}/API/`);
 });
+//Get css File for API
+app.get('/includes/style.css',(req,res)=>{
+    res.sendFile(`${__dirname}/API/includes/style.css`);
+})
+
+app.get('/images/NNLogo.jpg',(req,res)=>{
+    res.sendFile(`${__dirname}/API/images/NNLogo.jpg`);
+})
+
 
 // SONGS Routes
 app.get('/getAllSongs', (req, res) => {
