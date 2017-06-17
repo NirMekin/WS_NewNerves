@@ -19,14 +19,33 @@ function abstractFindModel(model,_query,errMsg){
     return new Promise((resolve, reject) => {
         model.find(_query ,'-_id',
             (err, result) => {
-                if (err)  reject(err);
-                else{
-                    if(result.length!=0) resolve(result);
+                if (err) reject(err);
+                else {
+                    if(result.length !== 0) resolve(result);
                     else resolve(errMsg);
                 }
             });
     });
 }
+//Abstract Insert Method
+function abstractInsertModel(model) {
+    return new Promise((resolve, reject) => {
+        model.save((err) => {
+            if (err) reject(err);
+            else console.log(`Saved document: ${JSON.stringify(model)}`);
+        });
+    });
+}
+//Abstract Update Method
+function abstractUpdateModel(model, conditions, update, opts) {
+    return new Promise((resolve, reject) => {
+        model.update(conditions, update, opts, (err) => {
+            if (err) reject(err);
+            else console.log(`User with ID ${conditions.id}'s was successfully changed updated`);
+        });
+    });
+}
+
 class MusicPlayer {
 
     getAllSongs(){
@@ -54,16 +73,44 @@ class MusicPlayer {
         return abstractFindModel(Users,{id:_id},{"Error":"Users was not found"});
     }
 
+    addNewUser(_id, _name, _profilepic) {
+        let newUser = new Users({
+            id: _id,
+            name: _name,
+            profilepic: _profilepic
+        });
+        return abstractInsertModel(newUser);
+    }
+
+    updateUserName(_id, _name) {
+        let conditions = {id: _id},
+            update = {$set: {name: _name}},
+            opts = {multi: true};
+        return abstractUpdateModel(Users, conditions, update, opts);
+    }
+
+    updateUserProfilePic(_id, _profilepic) {
+        let conditions = {id: _id},
+            update = {$set: {profilepic: _profilepic}},
+            opts = {multi: true};
+        return abstractUpdateModel(Users, conditions, update, opts);
+    }
+
     // MIXES Methods
     getAllMixes() {
         return abstractFindModel(Mixes,{},{"Error":"No Mixes were found"});
     }
+
     getMixesByUserID(_id){
         return abstractFindModel(Mixes,{userid:_id},{"Error":"No Mixes for user were found"});
     }
 
     getMixesByHashtags(_tag){
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
+    }
+
+    addNewMix(_songs) {
+
     }
 
 }

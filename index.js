@@ -48,29 +48,46 @@ app.post('/getSongsByGenre/',(req,res)=> {
 
 app.get(`/getSongsByArtist/:artist`,(req,res)=>{
     abstractFunction(res,mPlayer.getSongsByArtist,req.params.artist);
-})
+});
 
 // USERS Routes
 app.get(`/getAllUsers`,(req,res)=>{
     abstractFunction(res,mPlayer.getAllUsers);
-})
+});
 
 app.get(`/getUserByID/:id`,(req,res)=>{
     abstractFunction(res,mPlayer.getUserByID,req.params.id);
-})
+});
+
+app.post(`/addNewUser`, (req, res) => {
+    mPlayer.addNewUser(req.body.id, req.body.name, req.body.profilepic);
+});
+
+app.post(`/updateUserName`, (req, res) => {
+    mPlayer.updateUserName(req.body.id, req.body.name);
+});
+
+app.post(`/updateUserProfilePic`, (req, res) => {
+    mPlayer.updateUserProfilePic(req.body.id, req.body.profilepic);
+    res.status(200).json('OK');
+});
 
 // MIXES Routes
 app.get(`/getAllMixes`,(req,res)=>{
     abstractFunction(res,mPlayer.getAllMixes);
-})
+});
 
 app.get(`/getMixesByUserID/:id`,(req,res)=>{
     abstractFunction(res,mPlayer.getMixesByUserID,req.params.id);
-})
+});
 
 app.post('/getMixesByHashtags',(req,res)=>{
     abstractFunction(res,mPlayer.getMixesByHashtags,req.body.hashtag);
-})
+});
+
+app.post(`/addNewMix`, (req, res) => { // NEED TO FINISH
+    mPlayer.addNewMix();
+});
 
 app.listen(port);
 console.log(`listening on port ${port}`);
