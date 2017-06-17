@@ -33,6 +33,10 @@ app.all('*', (req, res, next) => {
     req.next();
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
+});
+
 // SONGS Routes
 app.get('/getAllSongs', (req, res) => {
     abstractFunction(res,mPlayer.getAllSongs);
@@ -63,13 +67,12 @@ app.post(`/addNewUser`, (req, res) => {
     mPlayer.addNewUser(req.body.id, req.body.name, req.body.profilepic);
 });
 
-app.post(`/updateUserName`, (req, res) => {
+app.post(`/updateUserName`, (req, res) => {       // NOT FINISHED NEED TO ADD VALIDATION
     mPlayer.updateUserName(req.body.id, req.body.name);
 });
 
-app.post(`/updateUserProfilePic`, (req, res) => {
+app.post(`/updateUserProfilePic`, (req, res) => {                   // NOT FINISHED NEED TO ADD VALIDATION
     mPlayer.updateUserProfilePic(req.body.id, req.body.profilepic);
-    res.status(200).json('OK');
 });
 
 // MIXES Routes
@@ -85,7 +88,7 @@ app.post('/getMixesByHashtags',(req,res)=>{
     abstractFunction(res,mPlayer.getMixesByHashtags,req.body.hashtag);
 });
 
-app.post(`/addNewMix`, (req, res) => { // NEED TO FINISH
+app.post(`/addNewMix`, (req, res) => { // NEED TO FINISH WITH VALIDATIO OF SONG IDs
     mPlayer.addNewMix();
 });
 
