@@ -36,11 +36,12 @@ img{
     border-top-right-radius: 2px;
 }
 .span1{
-    width:15%;
+    width:12.5%;
     display: block;
     float: left;
     text-align: center;
-    background: orange;
+    background: blue;
+    color: snow;
     border-right:solid gray 1px;
     border-bottom:solid gray 1px;
 }
@@ -48,7 +49,7 @@ img{
 .span2{
     background: snow;
     text-align: center;
-    width:85%;
+    width:87.5%;
     display: block;
     float: right;
     border-bottom:solid gray 1px;
