@@ -84,32 +84,6 @@ class MusicPlayer {
         });
         return abstractInsertModel(newUser);
     }
-    //
-    // var obj = JSON.parse(result);
-    // var keys = Object.keys(obj);
-    // for (var i = 0; i < keys.length; i++) {
-    // console.log(obj[keys[i]]);
-
-    // return new Promise((resolve, reject) => {
-    // try {
-    // abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
-    // if (result.hasOwnProperty(`Error`)) {
-    // console.log('test');
-    // resolve ({"Error" : `No user with ${_id} was found`});
-    // }
-    // else {
-    // let conditions = {id: _id},
-    // update = {$set: {name: _name}},
-    // opts = {multi: true};
-    // resolve(abstractUpdateModel(Users, conditions, update, opts));
-    // }
-    // });
-    // }
-    // catch(error) {
-    // reject(error);
-    // }
-    // });
-
 
     updateUserName(_id, _name) {
         return new Promise((resolve, reject) => {
