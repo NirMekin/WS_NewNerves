@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema,
     userSchema = new schema({
         name: {type: String, index: 1, required: true},
-        id: Number,
+        id: {type: Number, required: true},
         profilepic: {type: String, index: 1, required: true}
     },
         {versionKey: false},

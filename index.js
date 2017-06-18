@@ -6,7 +6,7 @@ const   express     = require('express'),
         bodyParser  = require('body-parser'),
         app         = express(),
         musicPlayer = require('./NewNervesMdl/index'),
-        port        = process.env.PORT || 3001;
+        port        = process.env.PORT || 3000;
 
 
 app.use(bodyParser.json());
@@ -74,7 +74,15 @@ app.get(`/getUserByID/:id`,(req,res)=>{
 });
 
 app.post(`/addNewUser`, (req, res) => {
-    mPlayer.addNewUser(req.body.id, req.body.name, req.body.profilepic);
+    try {
+        mPlayer.addNewUser(req.body.id, req.body.name, req.body.profilepic).then((result) => {
+            console.log(result);
+            res.status(200).json(result);
+        });
+    }
+    catch (err) {
+        res.status(200).json({"Error" : "Missing Required Data"});
+    }
 });
 
 app.post(`/updateUserName`, (req, res) => {       // NOT FINISHED NEED TO ADD VALIDATION

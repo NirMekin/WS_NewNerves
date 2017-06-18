@@ -30,13 +30,16 @@ function abstractFindModel(model,_query,errMsg){
 //Abstract Insert Method
 function abstractInsertModel(model) {
     return new Promise((resolve, reject) => {
-        model.save((err) => {
-            if (err) throw reject(err);
-            else {
+        try {
+            model.save((err) => {
+                console.log('test1');
+                if (err) throw reject(err);
+                else {
                     console.log(`Saved document: ${JSON.stringify(model)}`);
                     resolve({"Success":"Data was saved"});
-            }
-        });
+                }
+            });
+        }
     });
 }
 //Abstract Update Method
@@ -94,7 +97,6 @@ class MusicPlayer {
             try {
                     abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
                         if (result.hasOwnProperty(`Error`)) {
-                            console.log('test');
                             resolve ({"Error" : `No user with ${_id} was found`});
                         }
                         else {
@@ -132,8 +134,22 @@ class MusicPlayer {
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
 
-    addNewMix(_songs) {
-        return new Promise();
+    addNewMix(_userid) {
+        let newMix = new Mixes({
+           songs: [],
+            userid: _userid,
+            likes: 0,
+            heard: 0,
+            comments: [""],
+            hashtags: [""]
+        });
+        return abstractInsertModel(newMix);
+        // let newUser = new Users({
+        //     id: _id,
+        //     name: _name,
+        //     profilepic: _profilepic
+        // });
+        // return abstractInsertModel(newUser);
     }
 
 }
