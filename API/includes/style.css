@@ -3,7 +3,7 @@
     margin: 0;
 }
 body{
-    background: linear-gradient(lightblue,white,white);
+    background: linear-gradient(lightblue,snow,white);
 }
 #container{
     width:800px;
@@ -26,12 +26,12 @@ img{
 
 .methodHandle{
     background: white;
-    border: dashed lightblue 1px;
+    border: solid lightblue 1px;
     border-radius: 2px;
     border-top:none;
 }
 .methodHeader h2{
-    border-top: dashed lightblue 1px;
+    border-top: solid lightblue 1px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
 }
@@ -63,7 +63,7 @@ img{
     color: red;
     background: lightcyan;
     font-size: 90%;
-    font-family: "Rage Italic";
+    font-family: 'Chewy', cursive;
 }
 
 .methodExplain section{
