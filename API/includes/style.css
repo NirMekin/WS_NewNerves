@@ -1,3 +1,84 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: linear-gradient(lightblue,white,white);
+}
+#container{
+    width:800px;
+    margin: 0 auto;
+    background: #F9F9F9;
+    padding: 0.5% 2.5%;
+}
 h1{
-    color:red;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-weight: 700;
+}
+
+img{
+    border-radius: 50%;
+    width:10%;
+    display: block;
+    margin: auto;
+}
+
+.methodHandle{
+    background: white;
+    border: dashed lightblue 1px;
+    border-radius: 2px;
+    border-top:none;
+}
+.methodHeader h2{
+    border-top: dashed lightblue 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.span1{
+    width:15%;
+    display: block;
+    float: left;
+    text-align: center;
+    background: orange;
+    border-right:solid gray 1px;
+    border-bottom:solid gray 1px;
+}
+
+.span2{
+    background: snow;
+    text-align: center;
+    width:85%;
+    display: block;
+    float: right;
+    border-bottom:solid gray 1px;
+}
+
+.methodExplain{
+    padding-left: 2%;
+    border-bottom: solid 1px gray;
+    font-size: 120%;
+}
+.methodExplain span{
+    color: red;
+}
+
+.methodExplain section{
+    width: 98%;
+    height: 180px;
+    overflow-y: scroll;
+    margin-bottom: 2.5%;
+}
+
+.methodLink article{
+    padding-left: 2%;
+    float: left;
+    margin-right: 5%;
+}
+.methodLink a {
+    text-decoration: none;
+    float: left;
+}
+.clear{
+    clear: both;
 }
