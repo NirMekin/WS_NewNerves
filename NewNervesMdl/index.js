@@ -19,7 +19,7 @@ function abstractFindModel(model,_query,errMsg){
     return new Promise((resolve, reject) => {
         model.find(_query ,'-_id',
             (err, result) => {
-                if (err) reject(err);
+                if (err) throw reject(err);
                 else {
                     if(result.length !== 0) resolve(result);
                     else resolve(errMsg);
@@ -31,8 +31,11 @@ function abstractFindModel(model,_query,errMsg){
 function abstractInsertModel(model) {
     return new Promise((resolve, reject) => {
         model.save((err) => {
-            if (err) reject(err);
-            else console.log(`Saved document: ${JSON.stringify(model)}`);
+            if (err) throw reject(err);
+            else {
+                    console.log(`Saved document: ${JSON.stringify(model)}`);
+                    resolve({"Success":"Data was saved"});
+            }
         });
     });
 }
@@ -43,7 +46,8 @@ function abstractUpdateModel(model, conditions, update, opts) {
             if (err) reject(err);
             else {
                 console.log(`User with ID ${conditions.id}'s was successfully changed updated`);
-                resolve(result);
+                console.log(`\nResult message: ${result}`);
+                resolve({"Success":"Data was update"});
             }
         });
     });
@@ -88,17 +92,17 @@ class MusicPlayer {
     updateUserName(_id, _name) {
         return new Promise((resolve, reject) => {
             try {
-                abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
-                    if (result.hasOwnProperty(`Error`)) {
-                        console.log('test');
-                        resolve ({"Error" : `No user with ${_id} was found`});
-                    }
-                    else {
-                        let conditions = {id: _id},
-                        update = {$set: {name: _name}},
-                        opts = {multi: true};
-                        resolve(abstractUpdateModel(Users, conditions, update, opts));
-                    }
+                    abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
+                        if (result.hasOwnProperty(`Error`)) {
+                            console.log('test');
+                            resolve ({"Error" : `No user with ${_id} was found`});
+                        }
+                        else {
+                            let conditions = {id: _id},
+                            update = {$set: {name: _name}},
+                            opts = {multi: true};
+                            resolve(abstractUpdateModel(Users, conditions, update, opts));
+                        }
                 });
             }
             catch(error) {
@@ -106,23 +110,6 @@ class MusicPlayer {
             }
         });
 
-        // abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
-        //     if (result.hasOwnProperty(`Error`)) {
-        //         console.log('test');
-        //         return ({"Error" : `No user with ${_id} was found`});
-        //     }
-        //     else {
-        //         let conditions = {id: _id},
-        //             update = {$set: {name: _name}},
-        //             opts = {multi: true};
-        //         return abstractUpdateModel(Users, conditions, update, opts);
-        //     }
-        // });
-
-        // let conditions = {id: _id},
-        //     update = {$set: {name: _name}},
-        //     opts = {multi: true};
-        // return abstractUpdateModel(Users, conditions, update, opts);
     }
 
     updateUserProfilePic(_id, _profilepic) {
@@ -146,7 +133,7 @@ class MusicPlayer {
     }
 
     addNewMix(_songs) {
-
+        return new Promise();
     }
 
 }
