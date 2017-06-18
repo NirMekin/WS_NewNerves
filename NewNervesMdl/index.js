@@ -19,7 +19,7 @@ function abstractFindModel(model,_query,errMsg){
     return new Promise((resolve, reject) => {
         model.find(_query ,'-_id',
             (err, result) => {
-                if (err) throw reject(err);
+                if (err)  reject(err);
                 else {
                     if(result.length !== 0) resolve(result);
                     else resolve(errMsg);
@@ -30,16 +30,13 @@ function abstractFindModel(model,_query,errMsg){
 //Abstract Insert Method
 function abstractInsertModel(model) {
     return new Promise((resolve, reject) => {
-        try {
             model.save((err) => {
-                console.log('test1');
-                if (err) throw reject(err);
+                if (err) reject(err);
                 else {
                     console.log(`Saved document: ${JSON.stringify(model)}`);
                     resolve({"Success":"Data was saved"});
                 }
             });
-        }
     });
 }
 //Abstract Update Method

@@ -61,6 +61,9 @@ img{
 }
 .methodExplain span{
     color: red;
+    background: lightcyan;
+    font-size: 90%;
+    font-family: "Rage Italic";
 }
 
 .methodExplain section{

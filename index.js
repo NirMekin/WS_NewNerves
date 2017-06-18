@@ -17,15 +17,14 @@ var mPlayer = musicPlayer();
 
 //Abstract Function for relevant method matchcleaing the rout
 function abstractFunction(res,fun,param1,param2){
-    try{
+
        fun(param1,param2).then((result) => {
             res.status(200).json(result);
             console.log(`==========\n${result}\n Received successfully from the database!\n==========`);
-        })
-    }catch(err) {
+        }).catch((err)=> {
         console.log(`==========\nFailed to retrieve data: ${err}\n==========`);
         res.status(200).json({"Error":"DB issue"});
-    }
+    });
 }
 
 app.all('*', (req, res, next) => {
@@ -74,15 +73,12 @@ app.get(`/getUserByID/:id`,(req,res)=>{
 });
 
 app.post(`/addNewUser`, (req, res) => {
-    try {
         mPlayer.addNewUser(req.body.id, req.body.name, req.body.profilepic).then((result) => {
             console.log(result);
             res.status(200).json(result);
-        });
-    }
-    catch (err) {
-        res.status(200).json({"Error" : "Missing Required Data"});
-    }
+        }).catch ((err)=> {
+             res.status(200).json({"Error" : "Missing Required Data"});
+    });
 });
 
 app.post(`/updateUserName`, (req, res) => {       // NOT FINISHED NEED TO ADD VALIDATION
