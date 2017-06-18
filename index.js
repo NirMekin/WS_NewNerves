@@ -77,18 +77,19 @@ app.post(`/addNewUser`, (req, res) => {
             console.log(result);
             res.status(200).json(result);
         }).catch ((err)=> {
-             res.status(200).json({"Error" : "Missing Required Data"});
+            console.log(err.message);
+            res.status(200).json({"Error" : "Problem with data input"});
     });
 });
 
-app.post(`/updateUserName`, (req, res) => {       // NOT FINISHED NEED TO ADD VALIDATION
+app.post(`/updateUserName`, (req, res) => {
     mPlayer.updateUserName(req.body.id, req.body.name).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
 });
 
-app.post(`/updateUserProfilePic`, (req, res) => {                   // NOT FINISHED NEED TO ADD VALIDATION
+app.post(`/updateUserProfilePic`, (req, res) => {
     mPlayer.updateUserProfilePic(req.body.id, req.body.profilepic);
 });
 
@@ -105,9 +106,39 @@ app.post('/getMixesByHashtags',(req,res)=>{
     abstractFunction(res,mPlayer.getMixesByHashtags,req.body.hashtag);
 });
 
-app.post(`/addNewMix`, (req, res) => { // NEED TO FINISH WITH VALIDATIO OF SONG IDs
-    mPlayer.addNewMix();
+app.post(`/addNewMix`, (req, res) => {
+    mPlayer.addNewMix(req.body.userid).then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+    });
 });
+
+app.post(`/addHashTagToMix`, (req, res) => {
+    mPlayer.addHashTagToMix(req.body.userid, req.body.mixid, req.body.hashtag).then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+    });
+});
+
+app.post(`/addCommentToMix`, (req, res) => {
+    mPlayer.addCommentToMix(req.body.userid, req.body.mixid, req.body.comment).then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+    });
+});
+
+app.post(`/addSongToMix`, (req, res) => {
+    mPlayer.addSongToMix(req.body.userid, req.body.mixid, req.body.songid).then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+    });
+});
+
+// app.get(`/randomNum`, (req, res) => {
+//    console.log(Math.floor(Math.random() * (100 - 1) + 1));
+//    res.status(200).json('ok');
+// });
+
 
 app.listen(port);
 console.log(`listening on port ${port}`);

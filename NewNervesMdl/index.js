@@ -48,7 +48,7 @@ function abstractUpdateModel(model, conditions, update, opts) {
             else {
                 console.log(`User with ID ${conditions.id}'s was successfully changed updated`);
                 console.log(`\nResult message: ${result}`);
-                resolve({"Success":"Data was update"});
+                resolve({"Success":"Data was updated"});
             }
         });
     });
@@ -133,23 +133,95 @@ class MusicPlayer {
     }
 
     addNewMix(_userid) {
-        let newMix = new Mixes({
-           songs: [],
-            userid: _userid,
-            likes: 0,
-            heard: 0,
-            comments: [""],
-            hashtags: [""]
+        let randomMixId = Math.floor(Math.random() * (1000 - 1) + 1);
+        return new Promise((resolve, reject) => {
+            try {
+                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                    if (result.hasOwnProperty(`Error`)) {
+                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                    }
+                    else {
+                        let newMix = new Mixes({
+                            songs: [],
+                            userid: _userid,
+                            mixid: randomMixId,
+                            likes: 0,
+                            heard: 0,
+                            comments: [],
+                            hashtags: []
+                        });
+                        resolve(abstractInsertModel(newMix));
+                    }
+                });
+            }
+            catch(error) {
+                reject(error);
+            }
         });
-        return abstractInsertModel(newMix);
-        // let newUser = new Users({
-        //     id: _id,
-        //     name: _name,
-        //     profilepic: _profilepic
-        // });
-        // return abstractInsertModel(newUser);
     }
 
+    addHashTagToMix(_userid, _mixid, _hashtag) {
+        return new Promise((resolve, reject) => {
+            try {
+                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                    if (result.hasOwnProperty(`Error`)) {
+                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                    }
+                    else {
+                        let conditions = {userid: _userid, mixid: _mixid},
+                            update = {$push: {hashtags: _hashtag}},
+                            opts = {multi: true};
+                        resolve(abstractUpdateModel(Mixes, conditions, update, opts));
+                    }
+                });
+            }
+            catch(error) {
+                reject(error);
+            }
+        });
+    }
+
+    addCommentToMix(_userid, _mixid, _comment) {
+        return new Promise((resolve, reject) => {
+            try {
+                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                    if (result.hasOwnProperty(`Error`)) {
+                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                    }
+                    else {
+                        let conditions = {userid: _userid, mixid: _mixid},
+                            update = {$push: {comments: _comment}},
+                            opts = {multi: true};
+                        resolve(abstractUpdateModel(Mixes, conditions, update, opts));
+                    }
+                });
+            }
+            catch(error) {
+                reject(error);
+            }
+        });
+    }
+
+    addSongToMix(_userid, _mixid, _songid) {
+        return new Promise((resolve, reject) => {
+            try {
+                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                    if (result.hasOwnProperty(`Error`)) {
+                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                    }
+                    else {
+                        let conditions = {userid: _userid, mixid: _mixid},
+                            update = {$push: {songs: _songid}},
+                            opts = {multi: true};
+                        resolve(abstractUpdateModel(Mixes, conditions, update, opts));
+                    }
+                });
+            }
+            catch(error) {
+                reject(error);
+            }
+        });
+    }
 }
 
 module.exports = () => {

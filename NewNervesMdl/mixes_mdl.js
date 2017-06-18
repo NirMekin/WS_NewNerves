@@ -2,11 +2,12 @@ const mongoose = require('mongoose'),
       schema = mongoose.Schema,
       mixSchema = new schema({
           songs: [Number],
-          userid:Number,
+          userid:{type: Number, required: true},
+          mixid: {type: Number, unique: true},
           likes: Number,
           heard: Number,
-          comments: [{type: String, index: 1, required: true}],
-          hashtags: [{type: String, index: 1, required: true}],
+          comments: [{type: String}],
+          hashtags: [{type: String}]
       },
           {versionKey: false},
           {collection: 'mixes'});
