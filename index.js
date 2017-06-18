@@ -6,7 +6,7 @@ const   express     = require('express'),
         bodyParser  = require('body-parser'),
         app         = express(),
         musicPlayer = require('./NewNervesMdl/index'),
-        port        = process.env.PORT || 3000;
+        port        = process.env.PORT || 3001;
 
 
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //get instance of class musicPlayer
 var mPlayer = musicPlayer();
 
-//Abstract Function for relevant method matching the rout
+//Abstract Function for relevant method matchcleaing the rout
 function abstractFunction(res,fun,param1,param2){
     try{
        fun(param1,param2).then((result) => {
@@ -78,7 +78,10 @@ app.post(`/addNewUser`, (req, res) => {
 });
 
 app.post(`/updateUserName`, (req, res) => {       // NOT FINISHED NEED TO ADD VALIDATION
-    mPlayer.updateUserName(req.body.id, req.body.name);
+    mPlayer.updateUserName(req.body.id, req.body.name).then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+    });
 });
 
 app.post(`/updateUserProfilePic`, (req, res) => {                   // NOT FINISHED NEED TO ADD VALIDATION

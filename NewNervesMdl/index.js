@@ -39,9 +39,12 @@ function abstractInsertModel(model) {
 //Abstract Update Method
 function abstractUpdateModel(model, conditions, update, opts) {
     return new Promise((resolve, reject) => {
-        model.update(conditions, update, opts, (err) => {
+        model.update(conditions, update, opts, (err, result) => {
             if (err) reject(err);
-            else console.log(`User with ID ${conditions.id}'s was successfully changed updated`);
+            else {
+                console.log(`User with ID ${conditions.id}'s was successfully changed updated`);
+                resolve(result);
+            }
         });
     });
 }
@@ -81,12 +84,71 @@ class MusicPlayer {
         });
         return abstractInsertModel(newUser);
     }
+    //
+    // var obj = JSON.parse(result);
+    // var keys = Object.keys(obj);
+    // for (var i = 0; i < keys.length; i++) {
+    // console.log(obj[keys[i]]);
+
+    // return new Promise((resolve, reject) => {
+    // try {
+    // abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
+    // if (result.hasOwnProperty(`Error`)) {
+    // console.log('test');
+    // resolve ({"Error" : `No user with ${_id} was found`});
+    // }
+    // else {
+    // let conditions = {id: _id},
+    // update = {$set: {name: _name}},
+    // opts = {multi: true};
+    // resolve(abstractUpdateModel(Users, conditions, update, opts));
+    // }
+    // });
+    // }
+    // catch(error) {
+    // reject(error);
+    // }
+    // });
+
 
     updateUserName(_id, _name) {
-        let conditions = {id: _id},
-            update = {$set: {name: _name}},
-            opts = {multi: true};
-        return abstractUpdateModel(Users, conditions, update, opts);
+        return new Promise((resolve, reject) => {
+            try {
+                abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
+                    if (result.hasOwnProperty(`Error`)) {
+                        console.log('test');
+                        resolve ({"Error" : `No user with ${_id} was found`});
+                    }
+                    else {
+                        let conditions = {id: _id},
+                        update = {$set: {name: _name}},
+                        opts = {multi: true};
+                        resolve(abstractUpdateModel(Users, conditions, update, opts));
+                    }
+                });
+            }
+            catch(error) {
+                reject(error);
+            }
+        });
+
+        // abstractFindModel(Users,{id :_id}, {"Error":"Users was not found"}).then((result) => {
+        //     if (result.hasOwnProperty(`Error`)) {
+        //         console.log('test');
+        //         return ({"Error" : `No user with ${_id} was found`});
+        //     }
+        //     else {
+        //         let conditions = {id: _id},
+        //             update = {$set: {name: _name}},
+        //             opts = {multi: true};
+        //         return abstractUpdateModel(Users, conditions, update, opts);
+        //     }
+        // });
+
+        // let conditions = {id: _id},
+        //     update = {$set: {name: _name}},
+        //     opts = {multi: true};
+        // return abstractUpdateModel(Users, conditions, update, opts);
     }
 
     updateUserProfilePic(_id, _profilepic) {
