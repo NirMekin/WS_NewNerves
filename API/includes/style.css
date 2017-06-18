@@ -6,7 +6,7 @@ body{
     background: linear-gradient(lightblue,snow,white);
 }
 #container{
-    width:800px;
+    width:75%;
     margin: 0 auto;
     background: #F9F9F9;
     padding: 0.5% 2.5%;
