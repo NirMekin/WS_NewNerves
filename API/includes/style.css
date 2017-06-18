@@ -3,25 +3,33 @@
     margin: 0;
 }
 body{
-    background: linear-gradient(lightblue,snow,white);
+    background: linear-gradient(lightblue,snow,white,white);
 }
 #container{
-    width:75%;
+    width:65%;
     margin: 0 auto;
     background: #F9F9F9;
     padding: 0.5% 2.5%;
 }
 h1{
+    float: left;
     text-align: center;
     font-family: 'Indie Flower', cursive;
     font-weight: 700;
+    font-size: 275%;
 }
 
 img{
+    width:8%;
+    margin-top:3%;
+    float: right;
     border-radius: 50%;
-    width:10%;
     display: block;
-    margin: auto;
+}
+
+#headerSet{
+    width: 60%;
+    margin: 0 auto;
 }
 
 .methodHandle{
@@ -85,4 +93,11 @@ img{
 }
 .clear{
     clear: both;
+}
+
+.titleRoutes{
+    font-size: 300%;
+    border-bottom: 1px solid cornflowerblue;
+    color: cornflowerblue;
+    font-family: 'Ceviche One', cursive;
 }
