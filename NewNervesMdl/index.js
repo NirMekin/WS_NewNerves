@@ -60,6 +60,10 @@ class MusicPlayer {
         return abstractFindModel(Songs,{},{"Error":"No Songs were found"});
     }
 
+    getSongByID(_id) {
+        return abstractFindModel(Songs,{id: _id},{"Error":"No Songs were found"});
+    }
+
     getSongsByTitle(_title){
         return abstractFindModel(Songs,{title:_title},{"Error":"the specific Song was not found"});
     }

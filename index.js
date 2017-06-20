@@ -53,6 +53,11 @@ app.get('/getAllSongs', (req, res) => {
     abstractFunction(res,mPlayer.getAllSongs);
 });
 
+app.get('/getSongByID/:id', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    abstractFunction(res,mPlayer.getSongByID, req.params.id);
+});
+
 app.get('/getSongsByTitle/:title', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getSongsByTitle,req.params.title);
