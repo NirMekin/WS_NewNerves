@@ -136,7 +136,7 @@ class MusicPlayer {
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
 
-    addNewMix(_userid) {
+    addNewMix(_userid, _mixname) {
         let randomMixId = Math.floor(Math.random() * (1000 - 1) + 1);
         return new Promise((resolve, reject) => {
             try {
@@ -149,6 +149,7 @@ class MusicPlayer {
                             songs: [],
                             userid: _userid,
                             mixid: randomMixId,
+                            mixname: _mixname,
                             likes: 0,
                             heard: 0,
                             comments: [],

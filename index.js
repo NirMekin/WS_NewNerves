@@ -126,7 +126,7 @@ app.post('/getMixesByHashtags',(req,res) => {
 
 app.post(`/addNewMix`, (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addNewMix(req.body.userid).then((result) => {
+    mPlayer.addNewMix(req.body.userid, req.body.mixname).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
