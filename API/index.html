@@ -60,7 +60,7 @@
             </div>
             <div class="methodLink">
                 <article>Example: </article>
-                <a href="#">www.api.com</a>
+                <a href="getAllSongs">/getAllSongs</a>
                 <div class="clear"></div>
             </div>
         </div>
@@ -193,7 +193,7 @@
             </div>
             <div class="methodLink">
                 <article>Example: </article>
-                <a href="#">www.api.com</a>
+                <a href="/getAllUsers">/getAllUsers</a>
                 <div class="clear"></div>
             </div>
         </div>
@@ -230,6 +230,108 @@
         </div>
 
         <h2 class="titleRoutes">Mixes</h2>
+
+        <div class="methodHandle">
+            <div class="methodHeader">
+                <h2><span class="span1">GET</span><span class="span2">/getAllMixes</span></h2>
+            </div>
+            <div class="methodExplain">
+                <p>require <span>"id"</span> parameter</p>
+                <section>
+                    <pre>
+                    <code style="color: green;">
+                        [
+                            {
+                                title: "Gotta Get Away",
+                                artist: "The Black Keys",
+                                id: 100,
+                                duration: 181.2,
+                                cover: "heroku_data",
+                                genre: "Indie Rock"
+                            }
+                        ]
+                    </code>
+                    </pre>
+                </section>
+            </div>
+            <div class="methodLink">
+                <article>Example: </article>
+                <a href="/getAllMixes">/getAllMixes</a>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <div class="methodHandle">
+            <div class="methodHeader">
+                <h2><span class="span1">GET</span><span class="span2">/getMixesByUserID/:id</span></h2>
+            </div>
+            <div class="methodExplain">
+                <p>require <span>"id"</span> parameter</p>
+                <section>
+                    <pre>
+                    <code style="color: green;">
+                        [
+                            {
+                                songs: [101],
+                                userid: 456,
+                                mixid: 2,
+                                mixname: "My Favourite",
+                                likes: 0,
+                                heard: 0,
+                                comments: [""],
+                                hashtags: ["cool"]
+                            }
+                        ]
+                    </code>
+                    </pre>
+                </section>
+            </div>
+            <div class="methodLink">
+                <article>Example: </article>
+                <a href="/getMixesByUserID/456">/getMixesByUserID/:id</a>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <h2 class="titleRoutes">Error</h2>
+
+        <div class="methodHandle">
+            <div class="methodHeader">
+                <h2>Error Examples</h2>
+            </div>
+            <div class="methodExplain">
+                <section>
+                    <pre>
+                    <code style="color: green;">
+                        [
+                            {
+                                Error : DB issue
+                            }
+                        ]
+                    </code>
+                    </pre>
+                </section>
+            </div>
+            <div class="methodExplain">
+                <section>
+                    <pre>
+                    <code style="color: green;">
+                        [
+                            {
+                                Error : Problem with data
+                            }
+                        ]
+                    </code>
+                    </pre>
+                </section>
+            </div>
+            <div class="methodLink">
+                <div class="clear"></div>
+            </div>
+
+        </div>
 
     </div>
 </body>
