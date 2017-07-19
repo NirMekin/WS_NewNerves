@@ -91,7 +91,7 @@ class MusicPlayer {
             name: _name,
             profilepic: _profilepic,
             about: _about,
-            addressnpm: _address,
+            address: _address,
             userpassword: _pass
         });
         console.log(_username+_name+_profilepic+_address+_about+_pass);
