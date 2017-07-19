@@ -11,6 +11,13 @@ const   express     = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use( (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+    //res.set('Content-Type', 'application/json');  //Dont need it, cause API contained in this WS
+    next();
+});
 
 //get instance of class musicPlayer
 var mPlayer = musicPlayer();
@@ -49,12 +56,12 @@ app.get('/images/NNLogo.jpg',(req,res)=>{
 
 // SONGS Routes
 app.get('/getAllSongs', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getAllSongs);
 });
 
 app.get('/getSongByID/:id', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getSongByID, req.params.id);
 });
 
@@ -64,28 +71,28 @@ app.get('/getSongsByTitle/:title', (req, res) => {
 });
 
 app.post('/getSongsByGenre/',(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getSongsByGenre,req.body.genre);
 });
 
 app.get(`/getSongsByArtist/:artist`,(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getSongsByArtist,req.params.artist);
 });
 
 // USERS Routes
 app.get(`/getAllUsers`,(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getAllUsers);
 });
 
 app.get(`/getUserByIDAndPass/:username/:userpassword`,(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getUserByIDAndPass,req.params.username,req.params.userpassword);
 });
 
-app.post(`/addNewUser`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/addNewUser`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
         mPlayer.addNewUser(req.body.username, req.body.name, req.body.profilepic, req.body.address, req.body.about, req.body.userpassword).then((result) => {
             console.log(result);
             res.status(200).json(result);
@@ -95,61 +102,61 @@ app.post(`/addNewUser`, (req, res) => {
     });
 });
 
-app.post(`/updateUserName`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/updateUserName`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.updateUserName(req.body.id, req.body.name).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
 });
 
-app.post(`/updateUserProfilePic`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/updateUserProfilePic`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.updateUserProfilePic(req.body.id, req.body.profilepic);
 });
 
 // MIXES Routes
 app.get(`/getAllMixes`,(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getAllMixes);
 });
 
 app.get(`/getMixesByUserID/:id`,(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getMixesByUserID,req.params.id);
 });
 
-app.post('/getMixesByHashtags',(req,res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use('/getMixesByHashtags',(req,res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getMixesByHashtags,req.body.hashtag);
 });
 
-app.post(`/addNewMix`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/addNewMix`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.addNewMix(req.body.userid, req.body.mixname).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
 });
 
-app.post(`/addHashTagToMix`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/addHashTagToMix`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.addHashTagToMix(req.body.userid, req.body.mixid, req.body.hashtag).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
 });
 
-app.post(`/addCommentToMix`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/addCommentToMix`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.addCommentToMix(req.body.userid, req.body.mixid, req.body.comment).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
 });
 
-app.post(`/addSongToMix`, (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(`/addSongToMix`, (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     mPlayer.addSongToMix(req.body.userid, req.body.mixid, req.body.songid).then((result) => {
         console.log(result);
         res.status(200).json(result);
