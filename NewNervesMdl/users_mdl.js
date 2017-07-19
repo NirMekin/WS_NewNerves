@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
         name: {type: String, index: 1, required: true},
         username: {type: String, required: true , unique:true},
         profilepic: {type: String, index: 1},
-        about:{type: String, required: true},
-        address:{type: String, required: true},
-        userpassword:{type: String, required: true}
+        about:{type: String, index: 1, required: true},
+        address:{type: String, index: 1, required: true},
+        userpassword:{type: String, index: 1, required: true}
     },
         {versionKey: false},
         {collection: 'users'});
