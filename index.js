@@ -86,7 +86,7 @@ app.get(`/getUserByIDAndPass/:username/:userpassword`,(req,res) => {
 
 app.post(`/addNewUser`, (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-        mPlayer.addNewUser(req.body.username, req.body.name, req.body.profilepic,req.params.address,req.params.about,req.params.userpassword).then((result) => {
+        mPlayer.addNewUser(req.body.username, req.body.name, req.body.profilepic,req.body.address,req.body.about,req.body.userpassword).then((result) => {
             console.log(result);
             res.status(200).json(result);
         }).catch ((err)=> {

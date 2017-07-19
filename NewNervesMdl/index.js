@@ -91,9 +91,10 @@ class MusicPlayer {
             name: _name,
             profilepic: _profilepic,
             about: _about,
-            address: _address,
+            addressnpm: _address,
             userpassword: _pass
         });
+        console.log(_username+_name+_profilepic+_address+_about+_pass);
         return abstractInsertModel(newUser);
     }
 
