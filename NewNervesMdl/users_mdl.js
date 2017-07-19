@@ -5,8 +5,11 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema,
     userSchema = new schema({
         name: {type: String, index: 1, required: true},
-        id: {type: Number, required: true , unique:true},
-        profilepic: {type: String, index: 1}
+        username: {type: String, required: true , unique:true},
+        profilepic: {type: String, index: 1},
+        about:String,
+        address:String,
+        userpassword:String
     },
         {versionKey: false},
         {collection: 'users'});

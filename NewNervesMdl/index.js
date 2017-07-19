@@ -81,15 +81,18 @@ class MusicPlayer {
         return abstractFindModel(Users,{},{"Error":"No Users were found"});
     }
 
-    getUserByID(_id) {
-        return abstractFindModel(Users,{id:_id},{"Error":"Users was not found"});
+    getUserByIDAndPass(_username,_pass) {
+        return abstractFindModel(Users,{username:_username,userpassword:_pass},{"Error":"Users was not found"});
     }
 
-    addNewUser(_id, _name, _profilepic) {
+    addNewUser(_username, _name, _profilepic,_address,_about,_pass) {
         let newUser = new Users({
-            id: _id,
+            username: _username,
             name: _name,
-            profilepic: _profilepic
+            profilepic: _profilepic,
+            about: _about,
+            address: _address,
+            userpassword: _pass
         });
         return abstractInsertModel(newUser);
     }
