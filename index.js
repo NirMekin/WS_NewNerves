@@ -126,6 +126,11 @@ app.get(`/getMixesByUserID/:username`,(req,res) => {
     abstractFunction(res,mPlayer.getMixesByUserID,req.params.username);
 });
 
+app.get(`/getMixesByUsernameAndMixname/:username/:mixname`,(req,res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    abstractFunction(res,mPlayer.getMixesByUsernameAndMixname,req.params.username,req.params.mixname);
+});
+
 app.use('/getMixesByHashtags',(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getMixesByHashtags,req.body.hashtag);

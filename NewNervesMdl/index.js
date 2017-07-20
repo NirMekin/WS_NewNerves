@@ -136,6 +136,11 @@ class MusicPlayer {
         return abstractFindModel(Mixes,{username:_username},{"Error":"No Mixes for user were found"});
     }
 
+    getMixesByUsernameAndMixname(_username,_mixname){
+        return abstractFindModel(Mixes,{username:_username,mixname:_mixname},{"Error":"No Mixes for user were found"});
+    }
+
+
     getMixesByHashtags(_tag){
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
