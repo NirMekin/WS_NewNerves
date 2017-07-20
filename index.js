@@ -121,7 +121,7 @@ app.get(`/getAllMixes`,(req,res) => {
     abstractFunction(res,mPlayer.getAllMixes);
 });
 
-app.get(`/getMixesByUserID/:id`,(req,res) => {
+app.get(`/getMixesByUserID/:username`,(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getMixesByUserID,req.params.username);
 });
