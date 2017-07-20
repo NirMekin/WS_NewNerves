@@ -83,7 +83,7 @@ class MusicPlayer {
     getUsersDetails(_username){
         // return abstractFindModel(Users,{username:_username},);
         return new Promise((resolve, reject) => {
-            Users.find({username:_username} ,'-_id','-userpassword',
+            Users.find({username:_username} ,'-_id -userpassword',
                 (err, result) => {
                     if (err)  reject(err);
                     else {
