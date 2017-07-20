@@ -80,6 +80,9 @@ class MusicPlayer {
     getAllUsers() {
         return abstractFindModel(Users,{},{"Error":"No Users were found"});
     }
+    getUsersDetails(_username){
+        return abstractFindModel(Users,{username:_username},{"Error":"Users was not found"});
+    }
 
     getUserByIDAndPass(_username,_pass) {
         return abstractFindModel(Users,{username:_username , userpassword:_pass},{"Error":"Users was not found"});

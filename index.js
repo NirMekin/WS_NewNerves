@@ -86,6 +86,11 @@ app.get(`/getAllUsers`,(req,res) => {
     abstractFunction(res,mPlayer.getAllUsers);
 });
 
+app.get(`/getUsersDetails/:username`,(req,res) => {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    abstractFunction(res,mPlayer.getUsersDetails,req.params.username);
+});
+
 app.get(`/getUserByIDAndPass/:username/:userpassword`,(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getUserByIDAndPass,req.params.username,req.params.userpassword);
