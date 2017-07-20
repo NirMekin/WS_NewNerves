@@ -70,7 +70,7 @@ app.get('/getSongsByTitle/:title', (req, res) => {
     abstractFunction(res,mPlayer.getSongsByTitle,req.params.title);
 });
 
-app.post('/getSongsByGenre/',(req,res) => {
+app.use('/getSongsByGenre/',(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
     abstractFunction(res,mPlayer.getSongsByGenre,req.body.genre);
 });
@@ -123,7 +123,7 @@ app.get(`/getAllMixes`,(req,res) => {
 
 app.get(`/getMixesByUserID/:id`,(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    abstractFunction(res,mPlayer.getMixesByUserID,req.params.id);
+    abstractFunction(res,mPlayer.getMixesByUserID,req.params.username);
 });
 
 app.use('/getMixesByHashtags',(req,res) => {
@@ -133,7 +133,7 @@ app.use('/getMixesByHashtags',(req,res) => {
 
 app.use(`/addNewMix`, (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addNewMix(req.body.userid, req.body.mixname).then((result) => {
+    mPlayer.addNewMix(req.body.username, req.body.mixname).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
@@ -141,7 +141,7 @@ app.use(`/addNewMix`, (req, res) => {
 
 app.use(`/addHashTagToMix`, (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addHashTagToMix(req.body.userid, req.body.mixid, req.body.hashtag).then((result) => {
+    mPlayer.addHashTagToMix(req.body.username, req.body.mixid, req.body.hashtag).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });

@@ -132,19 +132,19 @@ class MusicPlayer {
         return abstractFindModel(Mixes,{},{"Error":"No Mixes were found"});
     }
 
-    getMixesByUserID(_id){
-        return abstractFindModel(Mixes,{userid:_id},{"Error":"No Mixes for user were found"});
+    getMixesByUserID(_username){
+        return abstractFindModel(Mixes,{username:_username},{"Error":"No Mixes for user were found"});
     }
 
     getMixesByHashtags(_tag){
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
 
-    addNewMix(_userid, _mixname) {
+    addNewMix(_username, _mixname) {
         let randomMixId = Math.floor(Math.random() * (1000 - 1) + 1);
         return new Promise((resolve, reject) => {
             try {
-                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
                     if (result.hasOwnProperty(`Error`)) {
                         resolve ({"Error" : `No user with id ${_userid} was found`});
                     }
@@ -169,10 +169,10 @@ class MusicPlayer {
         });
     }
 
-    addHashTagToMix(_userid, _mixid, _hashtag) {
+    addHashTagToMix(_username, _mixid, _hashtag) {
         return new Promise((resolve, reject) => {
             try {
-                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
                     if (result.hasOwnProperty(`Error`)) {
                         resolve ({"Error" : `No user with id ${_userid} was found`});
                     }
