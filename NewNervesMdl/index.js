@@ -81,7 +81,17 @@ class MusicPlayer {
         return abstractFindModel(Users,{},{"Error":"No Users were found"});
     }
     getUsersDetails(_username){
-        return abstractFindModel(Users,{username:_username},{"Error":"Users was not found"});
+        // return abstractFindModel(Users,{username:_username},);
+        return new Promise((resolve, reject) => {
+            Users.find({username:_username} ,'-_id','-userpassword',
+                (err, result) => {
+                    if (err)  reject(err);
+                    else {
+                        if(result.length !== 0) resolve(result);
+                        else resolve({"Error":"Users was not found"});
+                    }
+                });
+        });
     }
 
     getUserByIDAndPass(_username,_pass) {
