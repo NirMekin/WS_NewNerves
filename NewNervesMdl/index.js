@@ -221,7 +221,7 @@ class MusicPlayer {
             try {
                 abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
                     if (result.hasOwnProperty(`Error`)) {
-                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                        resolve ({"Error" : `No user with id  was found`});
                     }
                     else {
                         let conditions = {username: _username, mixname: _mixname},
