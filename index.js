@@ -146,7 +146,11 @@ app.use(`/addNewMix`, (req, res) => {
     mPlayer.addNewMix(req.body.username, req.body.mixname, req.body.mixcover).then((result) => {
         console.log(result);
         res.status(200).json(result);
-    });
+    })
+        .catch((err)=>{
+            console.log(err);
+            res.status(200).json(err);
+        });
 });
 
 app.use(`/addHashTagToMix`, (req, res) => {
