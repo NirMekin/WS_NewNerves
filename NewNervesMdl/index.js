@@ -174,15 +174,15 @@ class MusicPlayer {
                     }
 
 
-    addHashTagToMix(_username, _mixid, _hashtag) {
+    addHashTagToMix(_username, _mixname, _hashtag) {
         return new Promise((resolve, reject) => {
             try {
                 abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
                     if (result.hasOwnProperty(`Error`)) {
-                        resolve ({"Error" : `No user with id ${_userid} was found`});
+                        resolve ({"Error" : `No user ${_username} was found`});
                     }
                     else {
-                        let conditions = {userid: _userid, mixid: _mixid},
+                        let conditions = {username: _username, mixname: _mixname},
                             update = {$push: {hashtags: _hashtag}},
                             opts = {multi: true};
                         resolve(abstractUpdateModel(Mixes, conditions, update, opts));
@@ -216,15 +216,15 @@ class MusicPlayer {
         });
     }
 
-    addSongToMix(_userid, _mixid, _songid) {
+    addSongToMix(_username, _mixname, _songid) {
         return new Promise((resolve, reject) => {
             try {
-                abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
+                abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
                     if (result.hasOwnProperty(`Error`)) {
                         resolve ({"Error" : `No user with id ${_userid} was found`});
                     }
                     else {
-                        let conditions = {userid: _userid, mixid: _mixid},
+                        let conditions = {username: _username, mixname: _mixname},
                             update = {$push: {songs: _songid}},
                             opts = {multi: true};
                         resolve(abstractUpdateModel(Mixes, conditions, update, opts));
@@ -236,6 +236,21 @@ class MusicPlayer {
             }
         });
     }
+
+    incHeardFromMix(_username, _mixname, _heard) {
+        return new Promise((resolve, reject) => {
+            try {
+                let conditions = {username: _username, mixname: _mixname},
+                    update = {$set: {heard: _heard}},
+                    opts = {multi: true};
+                resolve(abstractUpdateModel(Mixes, conditions, update, opts));
+            }
+            catch(error) {
+                reject(error);
+            }
+        });
+    }
+
 }
 
 module.exports = () => {

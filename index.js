@@ -155,7 +155,7 @@ app.use(`/addNewMix`, (req, res) => {
 
 app.use(`/addHashTagToMix`, (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addHashTagToMix(req.body.username, req.body.mixid, req.body.hashtag).then((result) => {
+    mPlayer.addHashTagToMix(req.body.username, req.body.mixname, req.body.hashtag).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
@@ -171,8 +171,19 @@ app.use(`/addCommentToMix`, (req, res) => {
 
 app.use(`/addSongToMix`, (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addSongToMix(req.body.userid, req.body.mixid, req.body.songid).then((result) => {
+    mPlayer.addSongToMix(req.body.username, req.body.mixname, req.body.songid).then((result) => {
         console.log(result);
+        res.status(200).json(result);
+    });
+});
+
+app.use('/incHeardFromMix', (req, res) => {
+    mPlayer.getMixesByUsernameAndMixname(req.body.username, req.body.mixname).then((result) => {
+        console.log(result.toString());
+        let temp = result.toString().indexOf(`heard`)+7;
+        temp = parseInt(result.toString().charAt(temp));
+        console.log(temp);
+        mPlayer.incHeardFromMix(req.body.username, req.body.mixname, temp+1);
         res.status(200).json(result);
     });
 });
