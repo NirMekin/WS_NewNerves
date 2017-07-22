@@ -158,34 +158,21 @@ class MusicPlayer {
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
 
-    addNewMix(_username, _mixname) {
-        let randomMixId = Math.floor(Math.random() * (1000 - 1) + 1);
-        return new Promise((resolve, reject) => {
-            try {
-                abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
-                    if (result.hasOwnProperty(`Error`)) {
-                        resolve ({"Error" : `No user with id ${_userid} was found`});
-                    }
-                    else {
+    addNewMix(_username, _mixname,_mixcover) {
+
                         let newMix = new Mixes({
                             songs: [],
-                            userid: _userid,
-                            mixid: randomMixId,
+                            username: _username,
                             mixname: _mixname,
+                            mixcover:_mixcover,
                             likes: 0,
                             heard: 0,
                             comments: [],
                             hashtags: []
                         });
-                        resolve(abstractInsertModel(newMix));
+                        return abstractInsertModel(newMix);
                     }
-                });
-            }
-            catch(error) {
-                reject(error);
-            }
-        });
-    }
+
 
     addHashTagToMix(_username, _mixid, _hashtag) {
         return new Promise((resolve, reject) => {

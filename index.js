@@ -143,7 +143,7 @@ app.use('/getMixesByHashtags',(req,res) => {
 
 app.use(`/addNewMix`, (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    mPlayer.addNewMix(req.body.username, req.body.mixname).then((result) => {
+    mPlayer.addNewMix(req.body.username, req.body.mixname, req.body.mixcover).then((result) => {
         console.log(result);
         res.status(200).json(result);
     });
