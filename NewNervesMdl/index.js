@@ -7,7 +7,8 @@ const mongoose = require('mongoose'),
       Mixes = require('./mixes_mdl'),
       Users = require('./users_mdl');
 
-mongoose.connect(consts.MLAB_KEY);
+// mongoose.connect(consts.MLAB_KEY);
+mongoose.connect(consts.AWS_KEY);
 var conn = mongoose.connection;
 
 

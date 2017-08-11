@@ -72,7 +72,7 @@ app.get('/getSongsByTitle/:title', (req, res) => {
 
 app.use('/getSongsByGenre/',(req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    abstractFunction(res,mPlayer.getSongsByGenre,req.body.genre);
+    // abstractFunction(res,mPlayer.getSongsByGenre,req.body.genre);
 });
 
 app.get(`/getSongsByArtist/:artist`,(req,res) => {
