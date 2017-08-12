@@ -16,6 +16,20 @@ conn.on('error', (err) => {
     console.log(`connection error: ${err}`);
 });
 
+let lawgs = require('../node_modules/lawgs/index.js');
+
+
+lawgs.config({
+    aws: {
+        accessKeyId: 'AKIAIHZGWNWVRHRJCMXA', /* Optional if credentials are set in ~/.aws/credentials */
+        secretAccessKey: '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', /* Optional */
+        region: 'us-west-2' /* Required */
+    }
+});
+
+const logger  = lawgs.getOrCreate('NewNerves_WS'); /* LogGroup */
+
+
 //Abstract Find query
 function abstractFindModel(model,_query,errMsg){
     return new Promise((resolve, reject) => {
@@ -58,30 +72,37 @@ function abstractUpdateModel(model, conditions, update, opts) {
 class MusicPlayer {
 
     getAllSongs(){
+        logger.log('NewNerves-stream', `getAllSongs Request`);
         return abstractFindModel(Songs,{},{"Error":"No Songs were found"});
     }
 
     getSongByID(_id) {
+        logger.log('NewNerves-stream', `getSongByID Request`);
         return abstractFindModel(Songs,{id: _id},{"Error":"No Songs were found"});
     }
 
     getSongsByTitle(_title){
+        logger.log('NewNerves-stream', `getSongsByTitle Request`);
         return abstractFindModel(Songs,{title:_title},{"Error":"the specific Song was not found"});
     }
 
     getSongsByGenre(_genre) {
+        logger.log('NewNerves-stream', `getSongsByGenre Request`);
         return abstractFindModel(Songs,{genre:_genre},{"Error":"Genre doesn't exist"});
     }
 
     getSongsByArtist(_artist) {
+        logger.log('NewNerves-stream', `getSongsByArtist Request`);
         return abstractFindModel(Songs,{artist:_artist},{"Error":"Artist doesn't exist"});
     }
 
     // USERS Methods
     getAllUsers() {
+        logger.log('NewNerves-stream', `getAllUsers Request`);
         return abstractFindModel(Users,{},{"Error":"No Users were found"});
     }
     getUsersDetails(_username){
+        logger.log('NewNerves-stream', `getUsersDetails Request`);
         // return abstractFindModel(Users,{username:_username},);
         return new Promise((resolve, reject) => {
             Users.find({username:_username} ,'-_id -userpassword',
@@ -96,6 +117,7 @@ class MusicPlayer {
     }
 
     getUserByIDAndPass(_username,_pass) {
+        logger.log('NewNerves-stream', `getUserByIDAndPass Request`);
         return abstractFindModel(Users,{username:_username , userpassword:_pass},{"Error":"Users was not found"});
     }
 
@@ -108,6 +130,7 @@ class MusicPlayer {
             address: _address,
             userpassword: _pass
         });
+        logger.log('NewNerves-stream', `addNewUser Request`);
         console.log(_username+_name+_profilepic+_address+_about+_pass);
         return abstractInsertModel(newUser);
     }
@@ -123,6 +146,7 @@ class MusicPlayer {
                             let conditions = {id: _id},
                             update = {$set: {name: _name}},
                             opts = {multi: true};
+                            logger.log('NewNerves-stream', `updateUserName Request`);
                             resolve(abstractUpdateModel(Users, conditions, update, opts));
                         }
                 });
@@ -138,44 +162,50 @@ class MusicPlayer {
         let conditions = {id: _id},
             update = {$set: {profilepic: _profilepic}},
             opts = {multi: true};
+        logger.log('NewNerves-stream', `updateUserProfilePic Request`);
         return abstractUpdateModel(Users, conditions, update, opts);
     }
 
     // MIXES Methods
     getAllMixes() {
+        logger.log('NewNerves-stream', `getAllMixes Request`);
         return abstractFindModel(Mixes,{},{"Error":"No Mixes were found"});
     }
 
     getMixesByUserID(_username){
+        logger.log('NewNerves-stream', `getMixesByUserID Request`);
         return abstractFindModel(Mixes,{username:_username},{"Error":"No Mixes for user were found"});
     }
 
     getMixesByUsernameAndMixname(_username,_mixname){
+        logger.log('NewNerves-stream', `getMixesByUsernameAndMixname Request`);
         return abstractFindModel(Mixes,{username:_username,mixname:_mixname},{"Error":"No Mixes for user were found"});
     }
 
 
     getMixesByHashtags(_tag){
+        logger.log('NewNerves-stream', `getMixesByHashtags Request`);
         return abstractFindModel(Mixes,{hashtags:_tag},{"Error":"No Mixes with current hashtag were found"});
     }
 
     addNewMix(_username, _mixname,_mixcover) {
-
-                        let newMix = new Mixes({
-                            songs: [],
-                            username: _username,
-                            mixname: _mixname,
-                            mixcover:_mixcover,
-                            likes: 0,
-                            heard: 0,
-                            comments: [],
-                            hashtags: []
-                        });
-                        return abstractInsertModel(newMix);
-                    }
+        let newMix = new Mixes({
+            songs: [],
+            username: _username,
+            mixname: _mixname,
+            mixcover:_mixcover,
+            likes: 0,
+            heard: 0,
+            comments: [],
+            hashtags: []
+        });
+        logger.log('NewNerves-stream', `addNewMix Request`);
+        return abstractInsertModel(newMix);
+    }
 
 
     addHashTagToMix(_username, _mixname, _hashtag) {
+        logger.log('NewNerves-stream', `addHashTagToMix Request`);
         return new Promise((resolve, reject) => {
             try {
                 abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
@@ -197,6 +227,7 @@ class MusicPlayer {
     }
 
     addCommentToMix(_userid, _mixid, _comment) {
+        logger.log('NewNerves-stream', `addCommentToMix Request`);
         return new Promise((resolve, reject) => {
             try {
                 abstractFindModel(Users,{id :_userid}, {"Error":"Users was not found"}).then((result) => {
@@ -218,6 +249,7 @@ class MusicPlayer {
     }
 
     addSongToMix(_username, _mixname, _songid) {
+        logger.log('NewNerves-stream', `addSongToMix Request`);
         return new Promise((resolve, reject) => {
             try {
                 abstractFindModel(Users,{username :_username}, {"Error":"Users was not found"}).then((result) => {
@@ -239,6 +271,7 @@ class MusicPlayer {
     }
 
     incHeardFromMix(_username, _mixname, _heard) {
+        logger.log('NewNerves-stream', `incHeardFromMix Request`);
         return new Promise((resolve, reject) => {
             try {
                 let conditions = {username: _username, mixname: _mixname},

@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "lawgs": "^1.0.4",
     "mongoose": "^4.10.6",
     "promise": "^7.1.1"
   }
